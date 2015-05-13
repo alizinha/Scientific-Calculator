@@ -9,6 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import java.io.IOException;
+
+//import java.text.DecimalFormat;
+
+
+
 
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 
@@ -18,33 +24,46 @@ public class MainActivity extends Activity{
     private String expression;
     TextView calcDisplay;
     private double result;
+    String resultStr;
+    String answer;
     boolean clickable;
+    DoubleEvaluator expressionEvaluator;
+
+
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Button equalsButton = (Button) findViewById(R.id.equalsButton);
+        //final DecimalFormat doubleFormat = new DecimalFormat("0.00");
         expression = "";
         calcDisplay = (TextView) findViewById(R.id.tvResult);
-
-        final DoubleEvaluator expressionEvaluator = new DoubleEvaluator();
-
-
+        expressionEvaluator = new DoubleEvaluator();
         equalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                calcDisplay.setText("" + result);
-                reset();
-
+                try {
+                        result = expressionEvaluator.evaluate(expression);
+                        resultStr = String.valueOf(result);
+                        Log.d("test string", "resultStr");
+                        if (resultStr.endsWith(".0")) {
+                            answer = resultStr.substring(0, resultStr.indexOf('.')); //Integer cases!
+                            calcDisplay.setText(answer);
+                            // after calculating,the next onclick of a digit should clear screen content for added convenience.
+//                            reset();
+                        } else {
+                            calcDisplay.setText("" + result); //perhaps format this for maximum # of digits after decimal place. "0.000"
+                            // clear content for new calculations, unless an operation sign is selected. see comment above.
+                        }
+                    } catch (IllegalArgumentException e){
+                        calcDisplay.setText("Err");
+                    }
             }
 
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,17 +87,6 @@ public class MainActivity extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
-    public void Calculate(String expression) {
-
-    }
-
-    public void addTexttoExpression(String txtDisplay) {
-        calcDisplay.setText(txtDisplay);
-        Double x = Double.parseDouble(txtDisplay);
-        //add w.e button is selected to the expression
-    }
-
-
     public void onButtonClick(View v) {
         switch (v.getId()) {
             case R.id.decimalButton:
@@ -94,8 +102,8 @@ public class MainActivity extends Activity{
                 calcDisplay.append("" + ')');
                 break;
             case R.id.cancelButton:
-                calcDisplay.setText("");
                 expression = "";
+                calcDisplay.setText("");
                 break;
             case R.id.zeroButton:
                 expression += ("" + 0);
@@ -140,7 +148,7 @@ public class MainActivity extends Activity{
             case R.id.minusButton:
                 expression += ("" + " -");
                 calcDisplay.append("" + "- ");
-                reset();
+//                reset();
                 break;
 
             case R.id.plusButton:                  //OPERATIONS
@@ -148,7 +156,7 @@ public class MainActivity extends Activity{
                 //plusButton.setClickable(false);
                 expression += ("" + "+ ");
                 calcDisplay.append("" + "+ ");
-                reset();
+//                reset();
                 break;
 
             case R.id.xButton:
@@ -157,28 +165,20 @@ public class MainActivity extends Activity{
                 // se);
                 expression += ("" + '*');
                 calcDisplay.append("" + "* ");
-                reset();
+//                reset();
                 break;
             case R.id.divButton:
                 Button divButton = (Button) findViewById(R.id.divButton);
                 //divButton.setClickable(false);
                 expression += ("" + '/');
-                calcDisplay.append("" + "/ ");
-                reset();
+                calcDisplay.append("" + "÷ ");
+//                reset();
                 break;
+
+
         }
     }
-
-
-    public void onClickOperations(View v) {
-        clickable = true;
-        if (clickable) {
-            clickable = false;
-            //onOneClick(v);
-        }
-    }
-
-    public void reset() {
-        clickable = true;
-    }
+//    public void reset() {
+//        clickable = true;
+//    }
 }

@@ -13,12 +13,14 @@
         android:layout_width="match_parent"
         android:layout_marginLeft="5pt"
         android:layout_marginRight="5pt"
-        android:textSize="12pt"
+        android:textSize="20pt"
         android:layout_marginTop="3pt"
         android:id="@+id/tvResult"
-        android:gravity="center_horizontal"
+        android:textAlignment="textStart"
+        android:gravity="center_horizontal|right|bottom"
         android:layout_weight="0.91"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:nestedScrollingEnabled="true">
     </TextView>
 
     <LinearLayout
@@ -63,7 +65,7 @@
             android:text="÷"
             android:id="@+id/divButton"
             android:onClick="onButtonClick"
-            android:background="#ffff7d54" />
+            android:background="#ffff8624" />
 
     </LinearLayout>
 
@@ -108,7 +110,7 @@
             android:text="X"
             android:id="@+id/xButton"
             android:onClick="onButtonClick"
-            android:background="#ffff7d54" />
+            android:background="#ffff8624" />
 
     </LinearLayout>
 
@@ -154,7 +156,7 @@
             android:text="-"
             android:id="@+id/minusButton"
             android:onClick="onButtonClick"
-            android:background="#ffff7d54" />
+            android:background="#ffff8624"/>
 
     </LinearLayout>
 
@@ -200,7 +202,7 @@
             android:text="+"
             android:id="@+id/plusButton"
             android:onClick="onButtonClick"
-            android:background="#ffff7d54" />
+            android:background="#ffff8624" />
 
     </LinearLayout>
 
