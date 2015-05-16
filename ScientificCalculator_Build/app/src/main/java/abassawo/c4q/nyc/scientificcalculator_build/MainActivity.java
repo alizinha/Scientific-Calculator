@@ -18,7 +18,6 @@ import java.io.IOException;
 
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 
-
 public class MainActivity extends Activity{
 
     private String expression;
@@ -29,7 +28,7 @@ public class MainActivity extends Activity{
     boolean clickable;
     DoubleEvaluator expressionEvaluator;
 
-
+    //TODO : Implement functionality that clears text after err.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +39,7 @@ public class MainActivity extends Activity{
         //final DecimalFormat doubleFormat = new DecimalFormat("0.00");
         expression = "";
         calcDisplay = (TextView) findViewById(R.id.tvResult);
+        final TextView answerDisplay = (TextView) findViewById(R.id.tvAnswer);
         expressionEvaluator = new DoubleEvaluator();
         equalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,15 +50,15 @@ public class MainActivity extends Activity{
                         Log.d("test string", "resultStr");
                         if (resultStr.endsWith(".0")) {
                             answer = resultStr.substring(0, resultStr.indexOf('.')); //Integer cases!
-                            calcDisplay.setText(answer);
+                            answerDisplay.setText(answer);
                             // after calculating,the next onclick of a digit should clear screen content for added convenience.
 //                            reset();
                         } else {
-                            calcDisplay.setText("" + result); //perhaps format this for maximum # of digits after decimal place. "0.000"
+                            answerDisplay.setText("" + result); //perhaps format this for maximum # of digits after decimal place. "0.000"
                             // clear content for new calculations, unless an operation sign is selected. see comment above.
                         }
                     } catch (IllegalArgumentException e){
-                        calcDisplay.setText("Err");
+                        answerDisplay.setText("Err");
                     }
             }
 
@@ -174,8 +174,18 @@ public class MainActivity extends Activity{
                 calcDisplay.append("" + "÷ ");
 //                reset();
                 break;
-
-
+            case R.id.piButton:
+                Button piButton = (Button) findViewById(R.id.piButton);
+                expression += ("" + 3.14159 );
+                calcDisplay.append("pi");
+            case R.id.sinButton:
+                Button sinButton = (Button) findViewById(R.id.sinButton);
+                expression += ("sin");
+                calcDisplay.append("sin");
+            case R.id.cosButton:
+                Button cosButton = (Button) findViewById(R.id.cosButton);
+                expression += ("cos");
+                calcDisplay.append("cos");
         }
     }
 //    public void reset() {

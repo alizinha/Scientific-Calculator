@@ -8,6 +8,21 @@
     android:id="@+id/mainLayout"
     android:background="#c11f1f1f">
 
+    <!--<TextView-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_marginLeft="5pt"-->
+        <!--android:layout_marginRight="5pt"-->
+        <!--android:textSize="20pt"-->
+        <!--android:layout_marginTop="3pt"-->
+        <!--android:id="@+id/tvResult"-->
+        <!--android:textAlignment="textStart"-->
+        <!--android:gravity="center_horizontal|right|bottom"-->
+        <!--android:layout_weight="0.91"-->
+        <!--android:background="@android:color/white"-->
+        <!--android:nestedScrollingEnabled="true">-->
+    <!--</TextView>-->
+
     <TextView
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -16,12 +31,20 @@
         android:textSize="20pt"
         android:layout_marginTop="3pt"
         android:id="@+id/tvResult"
-        android:textAlignment="textStart"
-        android:gravity="center_horizontal|right|bottom"
-        android:layout_weight="0.91"
+        android:layout_weight="0.61"
         android:background="@android:color/white"
-        android:nestedScrollingEnabled="true">
+        android:nestedScrollingEnabled="false">
     </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5pt"
+        android:layout_marginRight="5pt"
+        android:layout_weight=".30"
+        android:background="@android:color/white"
+        android:textAlignment="textEnd"
+        android:id="@+id/tvAnswer"></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
