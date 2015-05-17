@@ -8,18 +8,34 @@
     android:id="@+id/mainLayout"
     android:background="#c11f1f1f">
 
-    <TextView
-        android:layout_height="wrap_content"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="5pt"
-        android:textSize="12pt"
-        android:layout_marginTop="3pt"
-        android:id="@+id/tvResult"
-        android:gravity="center_horizontal|right|bottom"
-        android:layout_weight="0.91"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_height="54dp"
+        android:layout_width="270dp"
+        android:textSize="20pt"
+        android:gravity="center_horizontal|left|bottom"
+        android:id="@+id/tvExpression"
         android:background="@android:color/white">
     </TextView>
+
+
+    <TextView
+        android:layout_width="270dp"
+        android:layout_height="54dp"
+        android:textSize="20pt"
+        android:background="@android:color/white"
+        android:textAlignment="textStart"
+        android:gravity="center_horizontal|right|bottom"
+        android:id="@+id/tvAnswer"
+        android:layout_weight="0.40"></TextView>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,19 +48,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RAD"
-            android:id="@+id/radButton" />
+            android:id="@+id/radButton"
+            android:onClick="onButtonClick" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Deg"
-            android:id="@+id/degButton" />
+            android:id="@+id/degButton"
+            android:onClick="onButtonClick" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="x!"
-            android:id="@+id/factorialButton" />
+            android:id="@+id/factorialButton"
+            android:onClick="onButtonClick" />
 
         <Button
             android:layout_height="wrap_content"
@@ -99,17 +118,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Inv"
-            android:id="@+id/invButton" />
+            android:id="@+id/invButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sin"
-            android:id="@+id/sinButton" />
+            android:id="@+id/sinButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ln"
-            android:id="@+id/lnButton" />
+            android:id="@+id/lnButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -160,17 +182,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="pi"
-            android:id="@+id/piButton" />
+            android:id="@+id/piButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cos"
-            android:id="@+id/cosButton" />
+            android:id="@+id/cosButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="log"
-            android:id="@+id/logButton" />
+            android:id="@+id/logButton"
+            android:onClick="onButtonClick" />
 
         <Button
             android:layout_height="wrap_content"
@@ -222,17 +247,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="e"
-            android:id="@+id/eButton" />
+            android:id="@+id/eButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tan"
-            android:id="@+id/tanButton" />
+            android:id="@+id/tanButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="√"
-            android:id="@+id/checkButton" />
+            android:id="@+id/checkButton"
+            android:onClick="onButtonClick" />
 
         <Button
             android:layout_height="wrap_content"
@@ -285,17 +313,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ans"
-            android:id="@+id/ansButton" />
+            android:id="@+id/ansButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="EXP"
-            android:id="@+id/exp_EXPButton" />
+            android:id="@+id/exp_EXPButton"
+            android:onClick="onButtonClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1/x"
-            android:id="@+id/Button" />
+            android:id="@+id/Button"
+            android:onClick="onButtonClick" />
 
         <Button
             android:layout_height="wrap_content"

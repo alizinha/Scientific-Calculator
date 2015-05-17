@@ -6,31 +6,17 @@
     android:layout_height="fill_parent"
     android:weightSum="1"
     android:id="@+id/mainLayout"
-    android:background="#c11f1f1f">
-
-    <!--<TextView-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_marginLeft="5pt"-->
-        <!--android:layout_marginRight="5pt"-->
-        <!--android:textSize="20pt"-->
-        <!--android:layout_marginTop="3pt"-->
-        <!--android:id="@+id/tvResult"-->
-        <!--android:textAlignment="textStart"-->
-        <!--android:gravity="center_horizontal|right|bottom"-->
-        <!--android:layout_weight="0.91"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:nestedScrollingEnabled="true">-->
-    <!--</TextView>-->
+    android:background="#c11f1f1f"
+    android:nestedScrollingEnabled="false">
 
     <TextView
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:layout_width="match_parent"
         android:layout_marginLeft="5pt"
         android:layout_marginRight="5pt"
         android:textSize="20pt"
         android:layout_marginTop="3pt"
-        android:id="@+id/tvResult"
+        android:id="@+id/tvExpression"
         android:layout_weight="0.61"
         android:background="@android:color/white"
         android:nestedScrollingEnabled="false">
@@ -38,12 +24,14 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginLeft="5pt"
         android:layout_marginRight="5pt"
+        android:textSize="20pt"
         android:layout_weight=".30"
         android:background="@android:color/white"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
+        android:gravity="center_horizontal|right|bottom"
         android:id="@+id/tvAnswer"></TextView>
 
     <LinearLayout
@@ -76,10 +64,11 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:text="%"
+            android:text="del"
             android:textSize="8pt"
-            android:id="@+id/pctSignButton"
-            android:onClick="onButtonClick">
+            android:id="@+id/delButton"
+            android:onClick="onButtonClick"
+            android:visibility="visible">
         </Button>
 
         <Button
