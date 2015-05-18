@@ -4,4 +4,6 @@
     <string name="title_activity_calculator">Calculator</string>
     <string name="display"></string>
     <string name="hello_world">Hello world!</string>
+    <!--<string name="expression">""</string>-->
+    <!--<string name="calcExpression">""</string>-->
 </resources>
