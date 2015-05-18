@@ -6,9 +6,9 @@
     android:layout_height="fill_parent"
     android:weightSum="1"
     android:id="@+id/mainLayout"
-    android:background="#c11f1f1f">
-
-
+    android:background="#c11f1f1f"
+    android:onClick="onButtonClick"
+    android:nestedScrollingEnabled="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -99,8 +99,9 @@
             android:layout_height="wrap_content"
             android:text="÷"
             android:id="@+id/divButton"
-            android:onClick="onButtonClick"
-            android:background="#ffff8624" />
+            android:onClick="onOperationClick"
+            android:background="#ffff8624"
+            android:nestedScrollingEnabled="true" />
 
 
 
@@ -139,7 +140,7 @@
             android:text="7"
             android:textSize="8pt"
             android:id="@+id/sevenButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
@@ -148,7 +149,7 @@
             android:text="8"
             android:textSize="8pt"
             android:id="@+id/eightButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
@@ -157,15 +158,16 @@
             android:text="9"
             android:textSize="8pt"
             android:id="@+id/nineButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="X"
             android:id="@+id/xButton"
-            android:onClick="onButtonClick"
-            android:background="#ffff8624" />
+            android:onClick="onOperationClick"
+            android:background="#ffff8624"
+            android:nestedScrollingEnabled="true" />
 
     </LinearLayout>
 
@@ -204,7 +206,7 @@
             android:text="4"
             android:textSize="8pt"
             android:id="@+id/fourButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
@@ -213,7 +215,7 @@
             android:text="5"
             android:textSize="8pt"
             android:id="@+id/fiveButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
@@ -222,15 +224,16 @@
             android:text="6"
             android:textSize="8pt"
             android:id="@+id/sixButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="-"
             android:id="@+id/minusButton"
-            android:onClick="onButtonClick"
-            android:background="#ffff8624"/>
+            android:onClick="onOperationClick"
+            android:background="#ffff8624"
+            android:nestedScrollingEnabled="true" />
 
     </LinearLayout>
 
@@ -259,7 +262,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="√"
-            android:id="@+id/checkButton"
+            android:id="@+id/sqrtButton"
             android:onClick="onButtonClick" />
 
         <Button
@@ -269,7 +272,7 @@
             android:text="1"
             android:textSize="8pt"
             android:id="@+id/oneButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
@@ -278,7 +281,7 @@
             android:text="2"
             android:textSize="8pt"
             android:id="@+id/twoButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
@@ -287,15 +290,16 @@
             android:text="3"
             android:textSize="8pt"
             android:id="@+id/threeButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+"
             android:id="@+id/plusButton"
-            android:onClick="onButtonClick"
-            android:background="#ffff8624"/>
+            android:onClick="onOperationClick"
+            android:background="#ffff8624"
+            android:nestedScrollingEnabled="true" />
 
     </LinearLayout>
 
@@ -314,7 +318,7 @@
             android:layout_height="wrap_content"
             android:text="Ans"
             android:id="@+id/ansButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onOperationClick" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -324,8 +328,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1/x"
-            android:id="@+id/Button"
+            android:text="."
+            android:id="@+id/decimalButton1"
             android:onClick="onButtonClick" />
 
         <Button
@@ -335,16 +339,16 @@
             android:text="0"
             android:textSize="8pt"
             android:id="@+id/zeroButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onNumbersClicked" />
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:text="."
+            android:text="del"
             android:textSize="8pt"
-            android:id="@+id/decimalButton"
-            android:onClick="onButtonClick" />
+            android:id="@+id/delButton"
+            android:onClick="onOperationClick" />
 
         <Button
             android:layout_height="wrap_content"
@@ -353,7 +357,7 @@
             android:text="C"
             android:textSize="8pt"
             android:id="@+id/cancelButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onOperationClick" />
 
         <Button
             android:layout_width="wrap_content"
