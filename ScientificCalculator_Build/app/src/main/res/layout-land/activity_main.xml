@@ -4,7 +4,6 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:weightSum="1"
     android:id="@+id/mainLayout"
     android:background="#c11f1f1f"
     android:onClick="onButtonClick"
@@ -13,26 +12,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:orientation="horizontal">
+        android:layout_weight="2"
+        android:orientation="vertical">
     <TextView
-        android:layout_height="54dp"
-        android:layout_width="270dp"
-        android:textSize="20pt"
-        android:gravity="center_horizontal|left|bottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="12pt"
+        android:gravity="left|bottom"
+
+        android:maxLines="1"
+        android:layout_weight="1"
         android:id="@+id/tvExpression"
         android:background="@android:color/white">
     </TextView>
 
 
     <TextView
-        android:layout_width="270dp"
-        android:layout_height="54dp"
-        android:textSize="20pt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="12pt"
+
         android:background="@android:color/white"
         android:textAlignment="textStart"
+
         android:gravity="center_horizontal|right|bottom"
         android:id="@+id/tvAnswer"
-        android:layout_weight="0.40"></TextView>
+        android:layout_weight="1"></TextView>
 
     </LinearLayout>
 
@@ -83,16 +88,18 @@
             android:id="@+id/closeParensButton"
             android:onClick="onButtonClick">
         </Button>
-
-        <Button
+        <ImageButton
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:text="%"
+            android:src="@drawable/ic_action_backspace"
             android:textSize="8pt"
-            android:id="@+id/pctSignButton"
-            android:onClick="onButtonClick">
-        </Button>
+            android:layout_alignParentRight="true"
+            android:onClick="onOperationClick"
+            android:id="@+id/delButton">
+        </ImageButton>
+
+
 
         <Button
             android:layout_width="wrap_content"
@@ -118,7 +125,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Inv"
+            android:text="INV"
             android:id="@+id/invButton"
             android:onClick="onButtonClick" />
         <Button
@@ -328,10 +335,18 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="."
-            android:id="@+id/decimalButton1"
+            android:text="%"
+            android:id="@+id/pctSignButton"
             android:onClick="onButtonClick" />
-
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="."
+            android:textSize="8pt"
+            android:id="@+id/decimalButton"
+            android:onClick="onButtonClick">
+        </Button>
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -341,14 +356,7 @@
             android:id="@+id/zeroButton"
             android:onClick="onNumbersClicked" />
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:text="del"
-            android:textSize="8pt"
-            android:id="@+id/delButton"
-            android:onClick="onOperationClick" />
+
 
         <Button
             android:layout_height="wrap_content"

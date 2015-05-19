@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Layout;
-import android.text.method.ArrowKeyMovementMethod;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
@@ -32,6 +31,8 @@ public class MainActivity extends Activity{
     String resultStr;
     DoubleEvaluator expressionEvaluator;
     private static final Function SQRT = new Function("sqrt", 1);
+    private static final Function factorial = new Function("!", 1);
+    private static final Function percent = new Function("%", 1);
     private static final Parameters params= DoubleEvaluator.getDefaultParameters(); // Gets the default DoubleEvaluator's parameters
 
 
@@ -40,21 +41,35 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         params.add(SQRT); // add the new sqrt function to Javaluator's parameters
+        params.add(factorial);
+        params.add(percent);
+
         expressionEvaluator = new DoubleEvaluator(params){
             @Override
             protected Double evaluate(Function function, Iterator arguments, Object evaluationContext) {
                 if (function == SQRT) {
                     // Implements the new function
-                    return Math.sqrt((double) arguments.next());
-                } else {
-                    // If it's another function, pass it to DoubleEvaluator
-                    return super.evaluate(function, arguments, evaluationContext);
+                    return Math.sqrt(   (double) arguments.next()   );
+                } else if (function == factorial) {
+                    double facResult = 1;
+                    for (double i = (double) arguments.next(); i >= 1; i--) {
+                        facResult = facResult * i;
+                    }
+                    return facResult;
                 }
-            }
+                else if (function == percent) {  //fixme    //can/should also attempt this w stringplay in onButtonClick. same w/ factorial
+                    double pctResult = .01 * ((double) arguments.next());
+                    return (pctResult);
+                }
+                else {
+                        // If it's another function, pass it to DoubleEvaluator
+                        return super.evaluate(function, arguments, evaluationContext);
+                    }
+                }
+
         };
+
 
         final DecimalFormat doubleFormat = new DecimalFormat("0.00");
 
@@ -202,6 +217,7 @@ public class MainActivity extends Activity{
 
               }
         }
+
       public void onNumbersClicked(View v) {
 
 
@@ -240,6 +256,7 @@ public class MainActivity extends Activity{
         }
         calcDisplay.setText(expression);
     }
+
     public void onButtonClick(View v) {
             switch (v.getId()) {
                 case R.id.decimalButton:
@@ -278,13 +295,19 @@ public class MainActivity extends Activity{
                     expression += ("e");
                     break;
                 case R.id.logButton:
-                    expression += ("log");
+                    expression += ("log(");
                     break;
                 case R.id.sqrtButton:
-                    expression += ("sqrt");
+                    expression += ("sqrt(");
                     break;
                 case R.id.factorialButton:
-                    expression += ("!");
+                    expression += ("!(");
+                    break;
+                case R.id.pctSignButton:
+                    expression += ("%");
+                    break;
+                case R.id.invButton:
+                    expression += ("1/");
                     break;
 
     }
