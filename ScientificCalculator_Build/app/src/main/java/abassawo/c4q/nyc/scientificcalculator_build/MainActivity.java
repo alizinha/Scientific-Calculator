@@ -10,29 +10,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.Iterator;
-
-
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 import com.fathzer.soft.javaluator.Function;
+import com.fathzer.soft.javaluator.Operator;
 import com.fathzer.soft.javaluator.Parameters;
 
 public class MainActivity extends Activity{
-    private String expression;
-    private String calcExpr;
+    private String expression, calcExpr;  //expression is for Human Display. calcExpr is for calculator to calculate.
+    private TextView calcDisplay, answerDisplay;  //together, both displays show expression and answer below. (see xml)
     private Button equalsButton;
     private String delString;
-    TextView calcDisplay;
+    private DoubleEvaluator expressionEvaluator;
     private double result;
-    private String ANS;
-    private TextView answerDisplay;
-    String resultStr;
-    DoubleEvaluator expressionEvaluator;
+    private String resultStr, ANS; //ANS is a duplicate result string specifically for ANS button.
     private static final Function SQRT = new Function("sqrt", 1);
-    private static final Function factorial = new Function("!", 1);
-    private static final Function percent = new Function("%", 1);
+    private static final Operator factorial = new Operator("!", 1, Operator.Associativity.LEFT, 3); //symbol, operand count, associativity, and precedence)
     private static final Parameters params= DoubleEvaluator.getDefaultParameters(); // Gets the default DoubleEvaluator's parameters
 
 
@@ -40,42 +36,43 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         params.add(SQRT); // add the new sqrt function to Javaluator's parameters
         params.add(factorial);
-        params.add(percent);
 
         expressionEvaluator = new DoubleEvaluator(params){
+            @Override
+            protected Double evaluate(Operator operator, Iterator<Double> operands, Object evaluationContext ){
+                if (operator == factorial) {
+                    //Double factorial = 0.0;
+                    double num = operands.next();
+                    double facResult = 1;
+                    for (double i = num; i >= 1; i--) {
+                        facResult = facResult * i; //Experimental ..trying to pass the factorial method
+                        //as 5! in expression... and5(!)in calcexpression
+                    }
+                    return facResult;
+                    //return facResult;
+                } else {
+                    return super.evaluate(operator, operands, evaluationContext);
+                }
+
+            }
+
             @Override
             protected Double evaluate(Function function, Iterator arguments, Object evaluationContext) {
                 if (function == SQRT) {
                     // Implements the new function
                     return Math.sqrt(   (double) arguments.next()   );
-                } else if (function == factorial) {
-                    double facResult = 1;
-                    for (double i = (double) arguments.next(); i >= 1; i--) {
-                        facResult = facResult * i;
-                    }
-                    return facResult;
+                } else {
+                    // If it's another function, pass it to DoubleEvaluator
+                    return super.evaluate(function, arguments, evaluationContext);
                 }
-                else if (function == percent) {  //fixme    //can/should also attempt this w stringplay in onButtonClick. same w/ factorial
-                    double pctResult = .01 * ((double) arguments.next());
-                    return (pctResult);
-                }
-                else {
-                        // If it's another function, pass it to DoubleEvaluator
-                        return super.evaluate(function, arguments, evaluationContext);
-                    }
-                }
+            }
 
         };
-
-
         final DecimalFormat doubleFormat = new DecimalFormat("0.00");
 
         expression = "";
-        //calcExpr = expression;
-
         answerDisplay = (TextView) findViewById(R.id.tvAnswer);
         calcDisplay = (TextView) findViewById(R.id.tvExpression);
         calcDisplay.setMovementMethod(new ScrollingMovementMethod());
@@ -83,45 +80,45 @@ public class MainActivity extends Activity{
         equalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ANS="";
-                    try {
-                        // calcExpr is the expression to be calculated. expression is just whats entered.
-                        if ((ANS!= null) && (expression.contains("ANS"))){
-
-                            expression.replace("ANS", resultStr.toString());  //assumes user prev calculated something
-                            Log.d("ANS", resultStr.toString());
-                        }
-                        calcExpr = expression; //can also create certain distinction.
-                        result = expressionEvaluator.evaluate(calcExpr); //calculate stuff
-                        Log.d("expr to be calculated", calcExpr);
-
-                        resultStr = doubleFormat.format(result); //avoid excessive decimals
-                        resultStr = String.valueOf(result);
-
-                        Log.d("test string", "resultStr");
-                        if (resultStr.endsWith(".0")) {
-                            resultStr = resultStr.substring(0, resultStr.indexOf('.')); //Integer cases!
-                            answerDisplay.setText("=" + resultStr); //exper
-
-                        } else {
-                            answerDisplay.setText("" + resultStr); //perhaps format this for maximum # of digits after decimal place. "0.000"
-                            // clear content for new calculations, unless an operation sign is selected. see comment above.
-                        }
-
-
-
-                    } catch (IllegalArgumentException e) {
-                        answerDisplay.setText("Err");
+                Log.d("expression", expression);
+                try {
+                    if (expression.contains("!")){
+                        calcExpr = expression.replace("!", "!1");
                     }
-                    expression = String.valueOf(resultStr);
-                    calcExpr = null;
-                    expression = "";
-                    //returned to null. this way, you can still use a checker.
-                    // if calcexpr is null, when you do onNumber button clear calcdisplay before adding button
-                ANS = resultStr;
+                    if (expression.contains("%")){
+                        calcExpr = expression.replace("%", "* .01");  //calculate percent.)
+                    } else {
+                        calcExpr = expression;
+                    }//can also create certain distinction.
+                    result = expressionEvaluator.evaluate(calcExpr); //calculate stuff
+                    Log.d("expr to be calculated", calcExpr);
+
+                    resultStr = doubleFormat.format(result); //avoid excessive decimals
+                    resultStr = String.valueOf(result);
+
+                    Log.d("test string", "resultStr");
+                    if (resultStr.endsWith(".0")) {
+                        resultStr = resultStr.substring(0, resultStr.indexOf('.')); //Integer cases!
+                        answerDisplay.setText("=" + resultStr); //exper
+
+                    } else {
+                        answerDisplay.setText("" + resultStr); //perhaps format this for maximum # of digits after decimal place. "0.000"
+                        // clear content for new calculations, unless an operation sign is selected. see comment above.
+                    }
+                    Log.d("calc Expr", calcExpr);
+
+
+
+                } catch (IllegalArgumentException e) {
+                    answerDisplay.setText("Err");
                 }
-
-
+                expression = String.valueOf(resultStr);
+                calcExpr = null;
+                expression = "";
+                //returned to null. this way, you can still use a checker.
+                // if calcexpr is null, when you do onNumber button clear calcdisplay before adding button
+                ANS = resultStr;
+            }
         });
     }
 
@@ -148,23 +145,29 @@ public class MainActivity extends Activity{
     }
 
     public void onOperationClick(View v){
+        delString = calcDisplay.getText().toString();
         switch (v.getId()) {
             case R.id.delButton:
-                delString = calcDisplay.getText().toString();
-                int length = delString.length();
-                if (length > 0) {
-                    delString = delString.substring(0, length - 1);
+                ImageButton backspace = (ImageButton) findViewById(R.id.delButton);
+                if (delString.length() > 0) {
+                    delString = delString.substring(0, delString.length() - 1);
                     expression = delString;
                 } else {
                     expression = "";
+                    backspace.setClickable(false); //stop clicking! no more text!
                 }
                 calcDisplay.setText(expression);
                 break;
             case R.id.cancelButton: //rename this to clearButton.
+                Button clearButton = (Button) findViewById(R.id.cancelButton);
                 calcExpr="";
                 expression="";
                 calcDisplay.setText("");
                 answerDisplay.setText("");
+                if (delString.length() == 0){
+                    clearButton.setClickable(false);
+                }
+
                 break;
             //Operations
             case R.id.minusButton:
@@ -301,7 +304,7 @@ public class MainActivity extends Activity{
                     expression += ("sqrt(");
                     break;
                 case R.id.factorialButton:
-                    expression += ("!(");
+                    expression += ("!");
                     break;
                 case R.id.pctSignButton:
                     expression += ("%");
@@ -314,6 +317,10 @@ public class MainActivity extends Activity{
             calcDisplay.setText(expression);
 
     }
+
+   
+
+
 
 
 
