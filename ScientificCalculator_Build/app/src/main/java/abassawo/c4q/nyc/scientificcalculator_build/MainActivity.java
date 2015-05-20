@@ -28,7 +28,7 @@ public class MainActivity extends Activity{
     private double result;
     private String resultStr, ANS; //ANS is a duplicate result string specifically for ANS button.
     private static final Function SQRT = new Function("sqrt", 1);
-    private static final Operator factorial = new Operator("!", 1, Operator.Associativity.LEFT, 3); //symbol, operand count, associativity, and precedence)
+    private static final Operator factorial = new Operator("!", 2, Operator.Associativity.LEFT, 3); //symbol, operand count, associativity, and precedence)
     private static final Parameters params= DoubleEvaluator.getDefaultParameters(); // Gets the default DoubleEvaluator's parameters
 
 
@@ -36,6 +36,7 @@ public class MainActivity extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         params.add(SQRT); // add the new sqrt function to Javaluator's parameters
         params.add(factorial);
 
@@ -81,10 +82,12 @@ public class MainActivity extends Activity{
             @Override
             public void onClick(View v) {
                 Log.d("expression", expression);
+
                 try {
                     if (expression.contains("!")){
-                        calcExpr = expression.replace("!", "!1");
-                    }
+                        String factorialExp = expression.replace("!", "!1");
+                        calcExpr = factorialExp;
+                    } else
                     if (expression.contains("%")){
                         calcExpr = expression.replace("%", "* .01");  //calculate percent.)
                     } else {
