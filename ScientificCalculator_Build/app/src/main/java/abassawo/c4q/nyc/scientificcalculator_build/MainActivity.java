@@ -1,6 +1,8 @@
+
 package abassawo.c4q.nyc.scientificcalculator_build;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Layout;
@@ -12,65 +14,99 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.Iterator;
+
+import com.fathzer.soft.javaluator.Constant;
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 import com.fathzer.soft.javaluator.Function;
 import com.fathzer.soft.javaluator.Operator;
 import com.fathzer.soft.javaluator.Parameters;
 
-public class MainActivity extends Activity{
+public class MainActivity extends Activity implements Serializable{
     private String expression, calcExpr;  //expression is for Human Display. calcExpr is for calculator to calculate.
     private TextView calcDisplay, answerDisplay;  //together, both displays show expression and answer below. (see xml)
     private Button equalsButton;
+    DoubleEvaluator expressionEvaluator;
     private String delString;
-    private DoubleEvaluator expressionEvaluator;
     private double result;
-    private String resultStr, ANS; //ANS is a duplicate result string specifically for ANS button.
-    private static final Function SQRT = new Function("sqrt", 1);
+    private String resultStr, ANS;
     private static final Operator factorial = new Operator("!", 2, Operator.Associativity.LEFT, 3); //symbol, operand count, associativity, and precedence)
-    private static final Parameters params= DoubleEvaluator.getDefaultParameters(); // Gets the default DoubleEvaluator's parameters
+    private static final Function SQRT = new Function("sqrt", 1);
 
+//        @Override
+//    protected void onSaveInstanceState(Bundle outState){
+//            super.onSaveInstanceState(outState);
+//            outState.putString("expressionStr", expression);
+//            outState.putString("answer", ANS);
+//            outState.putString("result Str", resultStr);
+//    }
+
+
+        @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+
+        }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        params.add(SQRT); // add the new sqrt function to Javaluator's parameters
+        Parameters params = DoubleEvaluator.getDefaultParameters();
+        params.add(SQRT);
         params.add(factorial);
 
-        expressionEvaluator = new DoubleEvaluator(params){
-            @Override
-            protected Double evaluate(Operator operator, Iterator<Double> operands, Object evaluationContext ){
-                if (operator == factorial) {
-                    //Double factorial = 0.0;
-                    double num = operands.next();
+        //final DoubleEvaluator expressionEvaluator = new DoubleEvaluator(params); //experimental
+
+//        if (  (savedInstanceState != null)) {
+//            //Restore value of members from saved state
+//            mCurrentExpression = savedInstanceState.getString("expressionStr");
+//            mCurrentANS = savedInstanceState.getString("answer");
+//        }
+//        else {
+//            mCurrentExpression = "";
+//            mCurrentANS = "";
+//        }
+//
+
+        try {
+            expressionEvaluator = new DoubleEvaluator(params) {
+                @Override
+                protected Double evaluate(Operator operator, Iterator<Double> operands, Object evaluationContext) {
                     double facResult = 1;
-                    for (double i = num; i >= 1; i--) {
-                        facResult = facResult * i; //Experimental ..trying to pass the factorial method
-                        //as 5! in expression... and5(!)in calcexpression
+                    if (operator == factorial) {
+                        double num = operands.next();
+                        for (double i = num; i >= 1; i--) {
+                            facResult = facResult * i;
+                        }
+                        return facResult;
+                    } else {
+                        return super.evaluate(operator, operands, evaluationContext);
                     }
-                    return facResult;
-                    //return facResult;
-                } else {
-                    return super.evaluate(operator, operands, evaluationContext);
+                    //return super.evaluate(expression evaluationContext);
+
                 }
 
-            }
-
-            @Override
-            protected Double evaluate(Function function, Iterator arguments, Object evaluationContext) {
-                if (function == SQRT) {
-                    // Implements the new function
-                    return Math.sqrt(   (double) arguments.next()   );
-                } else {
-                    // If it's another function, pass it to DoubleEvaluator
-                    return super.evaluate(function, arguments, evaluationContext);
+                @Override
+                public Double evaluate(Function function, Iterator arguments, Object evaluationContext) {
+                    if (function == SQRT) {
+                        // Implements the new function
+                        return Math.sqrt((double) arguments.next());
+                    } else {
+                        // If it's another function, pass it to DoubleEvaluator
+                        return super.evaluate(function, arguments, evaluationContext);
+                    }
                 }
-            }
 
-        };
+            };
+        }
+        catch (IllegalArgumentException e){
+
+        }
+
         final DecimalFormat doubleFormat = new DecimalFormat("0.00");
 
         expression = "";
@@ -84,8 +120,8 @@ public class MainActivity extends Activity{
                 Log.d("expression", expression);
 
                 try {
-                    if (expression.contains("!")){
-                        String factorialExp = expression.replace("!", "!1");
+                    if (expression.contains("!")   ){
+                        String factorialExp = expression.replace("!", "!1 ");
                         calcExpr = factorialExp;
                     } else
                     if (expression.contains("%")){
@@ -110,20 +146,22 @@ public class MainActivity extends Activity{
                     }
                     Log.d("calc Expr", calcExpr);
 
-
-
                 } catch (IllegalArgumentException e) {
-                    answerDisplay.setText("Err");
+                    answerDisplay.setText("err");  //experimental.
+                }
+                catch (NullPointerException e){
+                    answerDisplay.setText("err");
                 }
                 expression = String.valueOf(resultStr);
-                calcExpr = null;
+                //calcExpr = "";
                 expression = "";
                 //returned to null. this way, you can still use a checker.
                 // if calcexpr is null, when you do onNumber button clear calcdisplay before adding button
                 ANS = resultStr;
             }
         });
-    }
+
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,76 +190,97 @@ public class MainActivity extends Activity{
         switch (v.getId()) {
             case R.id.delButton:
                 ImageButton backspace = (ImageButton) findViewById(R.id.delButton);
-                if (delString.length() > 0) {
-                    delString = delString.substring(0, delString.length() - 1);
-                    expression = delString;
-                } else {
-                    expression = "";
-                    backspace.setClickable(false); //stop clicking! no more text!
-                }
+               // if (backspace!= null) {
+                    if (delString.length() > 0) {
+                        delString = delString.substring(0, delString.length() - 1);
+                        expression = delString;
+                    } else {
+                        expression = "";
+                        backspace.setClickable(false); //stop clicking! no more text!
+                    }
+               // }
                 calcDisplay.setText(expression);
                 break;
             case R.id.cancelButton: //rename this to clearButton.
                 Button clearButton = (Button) findViewById(R.id.cancelButton);
-                calcExpr="";
-                expression="";
-                calcDisplay.setText("");
-                answerDisplay.setText("");
-                if (delString.length() == 0){
-                    clearButton.setClickable(false);
-                }
+               // if (clearButton != null) {
+                    calcExpr = "";
+                    expression = "";
+                    calcDisplay.setText("");
+                    answerDisplay.setText("");
+                    if (delString.length() == 0) {
+                        clearButton.setClickable(false);
+                    }
+                // }
 
                 break;
             //Operations
             case R.id.minusButton:
-                if (expression == "" && ANS != null){
-                    expression += (ANS + "-");
-                    calcDisplay.setText(expression);
-                } else {
-                    expression += ("" + "-");
-                    calcDisplay.setText(expression);
-                }
+                //Button minusButton = (Button) findViewById(R.id.minusButton);
+               // if (minusButton != null) {
+                    if (expression == "" && ANS != null) {
+                        expression += (ANS + "-");
+                        calcDisplay.setText(expression);
+                    } else {
+                        expression += ("" + "-");
+                        calcDisplay.setText(expression);
+                    }
+               // }
                 break;
             case R.id.plusButton:
-                if (expression == "" && ANS != null){
-                    expression += (ANS + "+");
-                    calcDisplay.setText(expression);
-                } else {
-                    expression += ("" + "+");
-                    calcDisplay.setText(expression);
-                }
+               // Button plusButton = (Button) findViewById(R.id.plusButton);
+               // if (plusButton != null) {
+                    if (expression == "" && ANS != null) {
+                        expression += (ANS + "+");
+                        calcDisplay.setText(expression);
+                    } else {
+                        expression += ("" + "+");
+                        calcDisplay.setText(expression);
+                    }
+               // }
                     break;
 
             case R.id.xButton:
-                if (expression == "" && ANS != null){
-                    expression += (ANS + "+");
-                    calcDisplay.setText(expression);
-                } else {
-                    expression += ("" + '*');
-                    calcDisplay.setText(expression);
-                }
+                //Button xButton = (Button) findViewById(R.id.xButton);
+                //if (xButton != null) {
+                    if (expression == "" && ANS != null) {
+                        expression += (ANS + "+");
+                        calcDisplay.setText(expression);
+                    } else {
+                        expression += ("" + '*');
+                        calcDisplay.setText(expression);
+                    }
+                //}
                 break;
             case R.id.divButton:
-                if (expression == "" && ANS != null){
-                    expression += (ANS + "+");
-                    calcDisplay.setText(expression);
-                } else {
-                    expression += ("" + '/');
-                    calcDisplay.setText(expression);
-                }
+                //Button divButton = (Button) findViewById(R.id.divButton);
+                //if (divButton != null) {
+                    if (expression == "" && ANS != null) {
+                        expression += (ANS + "+");
+                        calcDisplay.setText(expression);
+                    } else {
+                        expression += ("" + '/');
+                        calcDisplay.setText(expression);
+                    }
+                //}
                 break;
             case R.id.ansButton:
-                if (ANS == null){
-                    expression += "";
-                    calcDisplay.setText("");
-                } else if (expression.equals(ANS)){//works
-                    calcDisplay.setText(expression);
-                } else  {
-                    expression += ANS;
-                    calcDisplay.setText(expression);
-                }
+                //Button answerButton = (Button) findViewById(R.id.ansButton);
+               // if (answerButton != null) { //IF WE ARE IN LANDSCAPE MODE
+                    if (ANS == null) {
+                        expression += "";
+                        calcDisplay.setText("");
+                    } else if (expression.equals(ANS)) {//works
+                        calcDisplay.setText(expression);
+                    } else {
+                        expression += ANS;
+                        calcDisplay.setText(expression);
+                    }
+                    break;
+                //}
 
               }
+                answerDisplay.setText("");
         }
 
       public void onNumbersClicked(View v) {
@@ -261,73 +320,121 @@ public class MainActivity extends Activity{
                 break;
         }
         calcDisplay.setText(expression);
+          answerDisplay.setText("");
     }
 
     public void onButtonClick(View v) {
             switch (v.getId()) {
+                case R.id.squareButton:
+                    expression += "^2";
+                    if (expression.contains("^2.")){
+                        expression = expression.replace("^2.","^2 ");
+                    }
                 case R.id.decimalButton:
-                    expression += ("" + '.');
+                    Button decimalButton = (Button) findViewById(R.id.decimalButton);
+                    //if (decimalButton != null) {
+                        expression += ("" + '.');
+                    //}
                     //calcDisplay.setText(expression);
                     break;
                 case R.id.openParensButton:
-                    expression += ("" + '(');
-                    // calcDisplay.setText(expression);
+                    Button openParensButton = (Button) findViewById(R.id.openParensButton);
+                    //if (openParensButton != null) {
+                        expression += ("" + '(');
+                        // calcDisplay.setText(expression);
+                    //}
                     break;
                 case R.id.closeParensButton:
-                    expression += ("" + ')');
-                    // calcDisplay.setText(expression);
+                    Button closeParensButton = (Button) findViewById(R.id.closeParensButton);
+                    //if (closeParensButton != null) {
+                        expression += ("" + ')');
+                        // calcDisplay.setText(expression);
+                    //}
                     break;
 
                 case R.id.piButton:
-                    expression += ("pi");
+                    Button piButton = (Button) findViewById(R.id.piButton);
+                    //if (piButton != null) {
+                        expression += ("pi");
+                    //}
                     break;
                 case R.id.sinButton:
-                    expression += ("sin(");
+                    Button sinButton = (Button) findViewById(R.id.sinButton);
+                    //if (sinButton != null) {
+                        expression += ("sin(");
+                    //}
                     //calcDisplay.setText(expression);
                     break;
                 case R.id.cosButton:
-                    expression += ("cos(");
+                    Button cosButton = (Button) findViewById(R.id.cosButton);
+                    //if (cosButton != null){
+                        expression += ("cos(");
+                    //}
+
                     break;
                 case R.id.tanButton:
-                    expression += ("tan(");
+                    Button tanButton  = (Button) findViewById(R.id.tanButton);
+                    //if (tanButton != null) {
+                        expression += ("tan(");
+                    //}
                     break;
                 case R.id.lnButton:
-                    expression += ("ln(");
+                    Button lnButton = (Button) findViewById(R.id.lnButton);
+                    //if (lnButton != null) {
+                        expression += ("ln(");
+                    //}
                     break;
                 case R.id.exp_EXPButton:
-                    expression += ("^");
+                    Button expButton = (Button) findViewById(R.id.exp_EXPButton);
+                    //if (expButton != null) {
+                        expression += ("^");
+                    //}
                     break;
                 case R.id.eButton:
+                    Button eButton = (Button) findViewById(R.id.eButton);
+                    //if (eButton != null){
                     expression += ("e");
+                  // }
                     break;
                 case R.id.logButton:
-                    expression += ("log(");
+                    Button logButton = (Button) findViewById(R.id.logButton);
+                    //if (logButton != null) {
+                        expression += ("log(");
+                    //}
                     break;
                 case R.id.sqrtButton:
-                    expression += ("sqrt(");
+                    Button sqrtButton = (Button) findViewById(R.id.sqrtButton);
+                    //if (sqrtButton != null) {
+                        expression += ("sqrt(");
+                    //}
                     break;
                 case R.id.factorialButton:
-                    expression += ("!");
+                    Button facButton = (Button) findViewById(R.id.factorialButton);
+                   // if (facButton != null) {
+                        expression += ("!");
+                    //}
                     break;
                 case R.id.pctSignButton:
-                    expression += ("%");
+                    Button pctButton = (Button) findViewById(R.id.pctSignButton);
+                    //if (pctButton != null) {
+                        expression += ("%");
+                    //}
                     break;
                 case R.id.invButton:
-                    expression += ("1/");
+                    Button invButton = (Button) findViewById(R.id.invButton);
+                    //if (invButton != null) {
+                        expression += ("1/");
+                    //}
                     break;
 
     }
             calcDisplay.setText(expression);
+            answerDisplay.setText("");
 
     }
 
-   
-
-
-
-
-
-
-
+    public void onToggleClicked(View v){
+        // radian to degree
+    }
 }
 

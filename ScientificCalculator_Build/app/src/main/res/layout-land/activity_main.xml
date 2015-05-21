@@ -14,30 +14,30 @@
         android:layout_height="50dp"
         android:layout_weight="2"
         android:orientation="vertical">
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:textSize="12pt"
-        android:gravity="left|bottom"
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:textSize="10pt"
+            android:gravity="left|bottom"
 
-        android:maxLines="1"
-        android:layout_weight="1"
-        android:id="@+id/tvExpression"
-        android:background="@android:color/white">
-    </TextView>
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:id="@+id/tvExpression"
+            android:background="@android:color/white">
+        </TextView>
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="12pt"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="10pt"
 
-        android:background="@android:color/white"
-        android:textAlignment="textStart"
+            android:background="@android:color/white"
+            android:textAlignment="textStart"
 
-        android:gravity="center_horizontal|right|bottom"
-        android:id="@+id/tvAnswer"
-        android:layout_weight="1"></TextView>
+            android:gravity="center_horizontal|right|bottom"
+            android:id="@+id/tvAnswer"
+            android:layout_weight="1"></TextView>
 
     </LinearLayout>
 
@@ -46,21 +46,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout2"
-        android:layout_marginTop="3pt"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="5pt">
-        <Button
+        android:layout_marginTop="2pt"
+        android:layout_marginLeft="4pt"
+        android:layout_marginRight="4pt">
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="RAD"-->
+            <!--android:id="@+id/radButton"-->
+            <!--android:onClick="onButtonClick" />-->
+        <ToggleButton
+            android:id="@+id/togglebutton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RAD"
-            android:id="@+id/radButton"
-            android:onClick="onButtonClick" />
+            android:textOn="rad"
+            android:textOff="deg"
+            android:onClick="onToggleClicked"
+            android:checked="true"
+            android:text="DEG" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Deg"
-            android:id="@+id/degButton"
+            android:text="x^2"
+            android:id="@+id/squareButton"
             android:onClick="onButtonClick" />
 
         <Button
@@ -118,9 +128,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout"
-        android:layout_marginTop="3pt"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="5pt" >
+        android:layout_marginTop="2pt"
+        android:layout_marginLeft="4pt"
+        android:layout_marginRight="4pt" >
 
         <Button
             android:layout_width="wrap_content"
@@ -182,9 +192,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout4"
-        android:layout_marginTop="3pt"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="5pt"
+        android:layout_marginTop="2pt"
+        android:layout_marginLeft="4pt"
+        android:layout_marginRight="4pt"
         android:layout_gravity="center_horizontal">
 
         <Button
@@ -248,9 +258,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout5"
-        android:layout_marginTop="3pt"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="5pt"
+        android:layout_marginTop="2pt"
+        android:layout_marginLeft="4pt"
+        android:layout_marginRight="4pt"
         android:layout_gravity="center_horizontal">
 
         <Button
@@ -314,9 +324,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout6"
-        android:layout_marginTop="3pt"
-        android:layout_marginLeft="5pt"
-        android:layout_marginRight="5pt"
+        android:layout_marginTop="2pt"
+        android:layout_marginLeft="4pt"
+        android:layout_marginRight="4pt"
         android:layout_gravity="right"
         android:layout_weight="0.79">
 
@@ -338,15 +348,7 @@
             android:text="%"
             android:id="@+id/pctSignButton"
             android:onClick="onButtonClick" />
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:text="."
-            android:textSize="8pt"
-            android:id="@+id/decimalButton"
-            android:onClick="onButtonClick">
-        </Button>
+
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -356,6 +358,15 @@
             android:id="@+id/zeroButton"
             android:onClick="onNumbersClicked" />
 
+        <Button
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:text="."
+            android:textSize="8pt"
+            android:id="@+id/decimalButton"
+            android:onClick="onButtonClick">
+        </Button>
 
 
         <Button
