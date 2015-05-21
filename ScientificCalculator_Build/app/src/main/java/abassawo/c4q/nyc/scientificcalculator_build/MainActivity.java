@@ -18,6 +18,7 @@ import java.util.Iterator;
 
 import com.fathzer.soft.javaluator.DoubleEvaluator;
 import com.fathzer.soft.javaluator.Function;
+import com.fathzer.soft.javaluator.Operator;
 import com.fathzer.soft.javaluator.Parameters;
 
 public class MainActivity extends Activity{
@@ -32,6 +33,7 @@ public class MainActivity extends Activity{
     String resultStr;
     DoubleEvaluator expressionEvaluator;
     private static final Function SQRT = new Function("sqrt", 1);
+    private static final Operator FACTORIAL = new Operator("!", 2, Operator.Associativity.LEFT, 3);
     private static final Parameters params= DoubleEvaluator.getDefaultParameters(); // Gets the default DoubleEvaluator's parameters
 
 
@@ -43,7 +45,25 @@ public class MainActivity extends Activity{
 
 
         params.add(SQRT); // add the new sqrt function to Javaluator's parameters
+        params.add(FACTORIAL); // add the new factorial to Javaluator's params
         expressionEvaluator = new DoubleEvaluator(params){
+
+            @Override
+            protected Double evaluate(Operator operator, Iterator<Double> operands, Object evaluationContext) {
+                double facResult = 1;
+                if (operator == FACTORIAL){
+                    double num = operands.next();
+                    for (double i = num; i >= 1; i--){
+                        facResult = facResult * i;
+                    }
+                    return facResult;
+                }
+                else {
+                    return super.evaluate(operator, operands, evaluationContext );
+                }
+            }
+
+
             @Override
             protected Double evaluate(Function function, Iterator arguments, Object evaluationContext) {
                 if (function == SQRT) {
@@ -70,13 +90,15 @@ public class MainActivity extends Activity{
             public void onClick(View v) {
                 //ANS="";
                     try {
-                        // calcExpr is the expression to be calculated. expression is just whats entered.
-                        if ((ANS!= null) && (expression.contains("ANS"))){
-
-                            expression.replace("ANS", resultStr.toString());  //assumes user prev calculated something
-                            Log.d("ANS", resultStr.toString());
+                        if (expression.contains("!" )){
+                            String factorialExp = expression.replace("!", "!1");
+                            calcExpr = factorialExp;
+                        } else if (expression.contains("%")){
+                            calcExpr = expression.replace("%", "* .01");
+                        } else {
+                            calcExpr = expression;
                         }
-                        calcExpr = expression; //can also create certain distinction.
+
                         result = expressionEvaluator.evaluate(calcExpr); //calculate stuff
                         Log.d("expr to be calculated", calcExpr);
 
@@ -199,9 +221,12 @@ public class MainActivity extends Activity{
                     expression += ANS;
                     calcDisplay.setText(expression);
                 }
+                break;
 
               }
+                answerDisplay.setText("");
         }
+
       public void onNumbersClicked(View v) {
 
 
@@ -239,7 +264,11 @@ public class MainActivity extends Activity{
                 break;
         }
         calcDisplay.setText(expression);
+        answerDisplay.setText("");
     }
+
+
+
     public void onButtonClick(View v) {
             switch (v.getId()) {
                 case R.id.decimalButton:
@@ -289,6 +318,7 @@ public class MainActivity extends Activity{
 
     }
             calcDisplay.setText(expression);
+            answerDisplay.setText("");
 
     }
 

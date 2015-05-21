@@ -34,7 +34,6 @@
         android:layout_weight=".30"
         android:background="@android:color/white"
         android:scrollHorizontally="true"
-        android:textAlignment="textStart"
         android:gravity="center_horizontal|right|bottom"
         android:id="@+id/tvAnswer"></TextView>
 
