@@ -28,7 +28,6 @@ public class MainActivity extends Activity implements Serializable{
     private String expression, calcExpr;  //expression is for Human Display. calcExpr is for calculator to calculate.
     private TextView calcDisplay, answerDisplay;  //together, both displays show expression and answer below. (see xml)
     private Button equalsButton;
-    private Button plusOrMinus;
     DoubleEvaluator expressionEvaluator;
     private String delString;
     private double result;
@@ -131,24 +130,6 @@ public class MainActivity extends Activity implements Serializable{
         answerDisplay = (TextView) findViewById(R.id.tvAnswer);
         calcDisplay = (TextView) findViewById(R.id.tvExpression);
         calcDisplay.setMovementMethod(new ScrollingMovementMethod());
-
-
-        plusOrMinus = (Button) findViewById(R.id.absButton);
-        if (plusOrMinus != null) {
-            plusOrMinus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    try {
-                        double x = (-1) * Double.valueOf(expression).doubleValue();
-                    } catch (NullPointerException e) {
-                        answerDisplay.setText("err");
-                    }
-                }
-            });
-        }
-
-
-
         equalsButton = (Button) findViewById(R.id.equalsButton);
         equalsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -359,9 +340,9 @@ public class MainActivity extends Activity implements Serializable{
 
     public void onButtonClick(View v) {
         switch (v.getId()) {
-//            case R.id.absButton:
-//                expression += "abs(";
-//                break;
+            case R.id.absButton:
+                expression += "abs(";
+                break;
             case R.id.decimalButton:
                 Button decimalButton = (Button) findViewById(R.id.decimalButton);
                 //if (decimalButton != null) {

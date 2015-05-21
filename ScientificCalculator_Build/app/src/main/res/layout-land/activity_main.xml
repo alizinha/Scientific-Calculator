@@ -68,7 +68,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+/-"
+            android:text="|   |"
             android:id="@+id/absButton"
             android:onClick="onButtonClick"
             android:textSize="10pt" />
@@ -147,7 +147,8 @@
             android:text="sin"
             android:id="@+id/sinButton"
             android:onClick="onButtonClick"
-            android:textSize="10pt" />
+            android:textSize="10pt"
+            android:nestedScrollingEnabled="true" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
