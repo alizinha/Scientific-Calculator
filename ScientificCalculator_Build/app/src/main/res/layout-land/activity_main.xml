@@ -24,6 +24,8 @@
             android:layout_weight="1"
             android:id="@+id/tvExpression"
             android:background="@android:color/white">
+            android:background="#fff4f0ff">
+
         </TextView>
 
 
@@ -32,9 +34,12 @@
             android:layout_height="wrap_content"
             android:textSize="10pt"
 
+
             android:background="@android:color/white"
             android:textAlignment="textStart"
 
+            android:background="#fff4f0ff"
+            android:textAlignment="textStart"
             android:gravity="center_horizontal|right|bottom"
             android:id="@+id/tvAnswer"
             android:layout_weight="1"></TextView>
@@ -49,28 +54,56 @@
         android:layout_marginTop="2pt"
         android:layout_marginLeft="4pt"
         android:layout_marginRight="4pt">
+<<<<<<< HEAD
+=======
+
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="RAD"-->
+            <!--android:id="@+id/radButton"-->
+            <!--android:onClick="onButtonClick" />-->
+        <ToggleButton
+            android:id="@+id/togglebutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOn="rad"
+            android:textOff="deg"
+            android:onClick="onToggleClicked"
+            android:checked="true"
+            android:text="DEG"
+            android:textSize="10pt" />
+>>>>>>> 47c9321476617b9b4cb74e639dc7906f317381e1
 
         <ToggleButton
             android:id="@+id/togglebutton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:textOn="RAD"
             android:textOff="DEG"
             android:onClick="onToggleClicked"/>
+=======
+            android:text="|   |"
+            android:id="@+id/absButton"
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
+>>>>>>> 47c9321476617b9b4cb74e639dc7906f317381e1
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="x!"
             android:id="@+id/factorialButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="("
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/openParensButton"
             android:onClick="onButtonClick">
         </Button>
@@ -79,7 +112,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text=")"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/closeParensButton"
             android:onClick="onButtonClick">
         </Button>
@@ -103,7 +136,8 @@
             android:id="@+id/divButton"
             android:onClick="onOperationClick"
             android:background="#ffff8624"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:textSize="10pt" />
 
 
 
@@ -120,27 +154,35 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+<<<<<<< HEAD
             android:text="INV"
+=======
+            android:text="1/x"
+>>>>>>> 47c9321476617b9b4cb74e639dc7906f317381e1
             android:id="@+id/invButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="sin"
             android:id="@+id/sinButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt"
+            android:nestedScrollingEnabled="true" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ln"
             android:id="@+id/lnButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="7"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/sevenButton"
             android:onClick="onNumbersClicked" />
 
@@ -149,7 +191,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="8"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/eightButton"
             android:onClick="onNumbersClicked" />
 
@@ -158,7 +200,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="9"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/nineButton"
             android:onClick="onNumbersClicked" />
 
@@ -169,7 +211,8 @@
             android:id="@+id/xButton"
             android:onClick="onOperationClick"
             android:background="#ffff8624"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:textSize="10pt" />
 
     </LinearLayout>
 
@@ -187,26 +230,29 @@
             android:layout_height="wrap_content"
             android:text="pi"
             android:id="@+id/piButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="cos"
             android:id="@+id/cosButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="log"
             android:id="@+id/logButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="4"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/fourButton"
             android:onClick="onNumbersClicked" />
 
@@ -215,7 +261,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="5"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/fiveButton"
             android:onClick="onNumbersClicked" />
 
@@ -224,7 +270,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="6"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/sixButton"
             android:onClick="onNumbersClicked" />
 
@@ -235,7 +281,8 @@
             android:id="@+id/minusButton"
             android:onClick="onOperationClick"
             android:background="#ffff8624"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:textSize="10pt" />
 
     </LinearLayout>
 
@@ -253,26 +300,29 @@
             android:layout_height="wrap_content"
             android:text="e"
             android:id="@+id/eButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="tan"
             android:id="@+id/tanButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="√"
             android:id="@+id/sqrtButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
 
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="1"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/oneButton"
             android:onClick="onNumbersClicked" />
 
@@ -281,7 +331,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="2"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/twoButton"
             android:onClick="onNumbersClicked" />
 
@@ -290,7 +340,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="3"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/threeButton"
             android:onClick="onNumbersClicked" />
 
@@ -301,7 +351,8 @@
             android:id="@+id/plusButton"
             android:onClick="onOperationClick"
             android:background="#ffff8624"
-            android:nestedScrollingEnabled="true" />
+            android:nestedScrollingEnabled="true"
+            android:textSize="10pt" />
 
     </LinearLayout>
 
@@ -320,37 +371,61 @@
             android:layout_height="wrap_content"
             android:text="Ans"
             android:id="@+id/ansButton"
-            android:onClick="onOperationClick" />
+            android:onClick="onOperationClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="EXP"
+            android:text="exp"
             android:id="@+id/exp_EXPButton"
-            android:onClick="onButtonClick" />
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="%"
             android:id="@+id/pctSignButton"
+<<<<<<< HEAD
             android:onClick="onButtonClick" />
+=======
+            android:onClick="onButtonClick"
+            android:textSize="10pt" />
+
+>>>>>>> 47c9321476617b9b4cb74e639dc7906f317381e1
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
+<<<<<<< HEAD
             android:text="."
             android:textSize="8pt"
             android:id="@+id/decimalButton"
             android:onClick="onButtonClick">
         </Button>
+=======
+            android:text="0"
+            android:textSize="10pt"
+            android:id="@+id/zeroButton"
+            android:onClick="onNumbersClicked" />
+
+>>>>>>> 47c9321476617b9b4cb74e639dc7906f317381e1
         <Button
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:layout_weight="1"
+<<<<<<< HEAD
             android:text="0"
             android:textSize="8pt"
             android:id="@+id/zeroButton"
             android:onClick="onNumbersClicked" />
 
+=======
+            android:text="."
+            android:textSize="10pt"
+            android:id="@+id/decimalButton"
+            android:onClick="onButtonClick">
+        </Button>
+>>>>>>> 47c9321476617b9b4cb74e639dc7906f317381e1
 
 
         <Button
@@ -358,7 +433,7 @@
             android:layout_width="match_parent"
             android:layout_weight="1"
             android:text="C"
-            android:textSize="8pt"
+            android:textSize="10pt"
             android:id="@+id/cancelButton"
             android:onClick="onOperationClick" />
 
@@ -368,7 +443,8 @@
             android:text="="
             android:id="@+id/equalsButton"
             android:onClick="onButtonClick"
-            android:background="@android:color/white" />
+            android:background="@android:color/white"
+            android:textSize="10pt" />
 
     </LinearLayout>
 
